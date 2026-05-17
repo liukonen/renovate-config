@@ -1,0 +1,44 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "extends": [
+    "config:recommended"
+  ],
+
+  "minimumReleaseAge": "7 days",
+  "ignoreUnstable": true,
+
+  "dependencyDashboard": true,
+  "platformAutomerge": false,
+
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "minimumReleaseAge": "14 days"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "minimumReleaseAge": "14 days"
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "automerge": false
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "automerge": false
+    }
+  ]
+}

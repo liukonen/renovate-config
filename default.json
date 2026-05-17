@@ -1,0 +1,86 @@
+{
+  "extends": ["config:base"],
+  
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "timezone": "America/Chicago",
+
+  "dependencyDashboard": true,
+
+  "labels": ["dependencies"],
+
+  "prCreation": "not-pending",
+  "rebaseWhen": "conflicted",
+
+  "semanticCommits": "enabled",
+
+  "packageRules": [
+    {
+      "description": "GLOBAL SAFETY: patch + minor auto, major always review",
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+
+    {
+      "description": "GLOBAL MAJORS ALWAYS MANUAL",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["major-upgrade", "requires-review"]
+    },
+
+    {
+      "description": ".NET strict stability (no delay, controlled upgrades)",
+      "matchDatasources": ["nuget"],
+      "matchPackagePatterns": [
+        "^Microsoft\\.",
+        "^System\\."
+      ],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+
+    {
+      "description": ".NET major upgrades gated",
+      "matchDatasources": ["nuget"],
+      "matchPackagePatterns": [
+        "^Microsoft\\.",
+        "^System\\."
+      ],
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["dotnet", "major-upgrade"]
+    },
+
+    {
+      "description": "npm: 3-day stability buffer",
+      "matchDatasources": ["npm"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "stabilityDays": 3
+    },
+
+    {
+      "description": "Go: 1-day stability buffer",
+      "matchDatasources": ["go"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "stabilityDays": 1
+    },
+
+    {
+      "description": "Python: 1-day stability buffer",
+      "matchDatasources": ["pypi"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "stabilityDays": 1
+    },
+
+    {
+      "description": "Docker: 12-hour stability buffer",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "stabilityDays": 0.5
+    }
+  ]
+}
